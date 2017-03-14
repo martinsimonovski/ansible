@@ -1,0 +1,20 @@
+---
+- name: Install NGINX
+  apt: name=nginx state=present update_cache=true
+- name: Create letsdevelop.info
+  template:
+    src=nginx_vh_basic.conf.j2
+    dest=/etc/nginx/sites-available/{{url}}
+- name: Enable letsdevelop.info
+  file:
+    src=/etc/nginx/sites-available/{{url}}
+    dest=/etc/nginx/sites-enabled/{{url}}
+    state=link
+  notify:
+    - reload nginx
+- name: Remove default link
+  file:
+    path=/etc/nginx/sites-enabled/default
+    state=absent
+  notify:
+    - reload nginx

@@ -1,0 +1,10 @@
+---
+  - name: Update apt cache
+    apt: update_cache=yes
+
+  - name: Set zsh as the default shell for root
+    command: /usr/bin/chsh -s /usr/bin/zsh root
+
+  - name: Copy configuration for VHost
+    template: src=sshdconfig.jinja2 dest=/etc/ssh/sshd_config
+    notify: restart sshd
