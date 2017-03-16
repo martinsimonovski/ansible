@@ -1,0 +1,12 @@
+---
+- hosts: 127.0.0.1
+  become: true
+  strategy: debug
+  user: vagrant
+  tasks:
+    - debug:
+        msg: Some message
+    - name: Update apt cache
+      apt: update_cache=yes
+    - name: Install NGINX
+      apt: pkg=nginx state=installed update_cache=true

@@ -1,0 +1,13 @@
+---
+# Domains
+domain: letsdevelop.info
+globeDomain: globe.letsdevelop.info
+riskDomain: riskhedge.letsdevelop.info
+
+# Ports
+globePort: 4000
+
+# PATHS
+domainRoot: /root/projects/home
+globeRoot: /root/projects/globe
+riskRoot: /root/projects/riskhedge-simple-api
