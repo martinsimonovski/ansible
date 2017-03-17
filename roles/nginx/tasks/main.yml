@@ -13,7 +13,7 @@
 # letsdevelop.info
 - name: Create {{domain}}
   template:
-    src=nginx_vh_basic.conf.j2
+    src=letsdevelop.info.conf.j2
     dest=/etc/nginx/sites-available/{{domain}}
 - name: Enable {{domain}}
   file:
@@ -26,7 +26,7 @@
 # globe.letsdevelop.info
 - name: Create {{globeDomain}}
   template:
-    src=nginx_vh_node.conf.j2
+    src=globe.letsdevelop.info.conf.j2
     dest=/etc/nginx/sites-available/{{globeDomain}}
 - name: Enable {{globeDomain}}
   file:
@@ -39,7 +39,7 @@
 # riskhedge.letsdevelop.info
 - name: Create {{riskDomain}}
   template:
-    src=nginx_vh.conf.j2
+    src=riskhedge.letsdevelop.info.conf.j2
     dest=/etc/nginx/sites-available/{{riskDomain}}
 - name: Enable {{riskDomain}}
   file:

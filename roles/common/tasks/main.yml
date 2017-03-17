@@ -24,6 +24,9 @@
   - name: Create Projects root folder
     file: path={{ projectsRoot }} state=directory owner=www-data group=www-data mode=0755 recurse=yes
 
+  - name: Create alias for projects folder
+    command: alias projects='cd {{ projectsRoot }}/$1'
+
   - name: Create Projects folders
     file: path={{ item }} state=directory owner=www-data group=www-data mode=0755 recurse=yes
     with_items:

@@ -1,9 +1,9 @@
 # variables that are visible from all roles
 
-projectsRoot: ~/projects
-projectsHome: ~/projects/home
-projectsGlobe: ~/projects/globe
-projectsRisk: ~/projects/riskhedge-simple-api
+projectsRoot: /home/projects
+projectsHome: /home/projects/home
+projectsGlobe: /home/projects/globe
+projectsRisk: /home/projects/riskhedge-simple-api
 
 # ssh configuration file
 sshd_port: 443
