@@ -7,10 +7,6 @@
     apt: pkg=zsh,git state=latest
     register: installation
 
-  - name: Backing up existing ~/.zshrc
-    shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc{,.orig}; fi
-    when: installation|success
-
   - name: Cloning oh-my-zsh
     git:
       repo=https://github.com/robbyrussell/oh-my-zsh
@@ -29,7 +25,7 @@
     file: path={{ projectsRoot }} state=directory owner=www-data group=www-data mode=0755 recurse=yes
 
   - name: Create Projects folders
-    file: path={{item}} state=directory owner=www-data group=www-data mode=0755 recurse=yes
+    file: path={{ item }} state=directory owner=www-data group=www-data mode=0755 recurse=yes
     with_items:
       - "{{ projectsHome }}"
       - "{{ projectsGlobe }}"
