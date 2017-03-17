@@ -8,6 +8,6 @@ riskDomain: riskhedge.letsdevelop.info
 globePort: 4000
 
 # PATHS
-domainRoot: /root/projects/home
-globeRoot: /root/projects/globe
-riskRoot: /root/projects/riskhedge-simple-api
+# domainRoot: ~/projects/home
+# globeRoot: ~/projects/globe
+# riskRoot: ~/projects/riskhedge-simple-api

@@ -1,0 +1,6 @@
+---
+# Projects
+projectsRoot: ~/projects
+projectsHome: ~/projects/home
+projectsGlobe: ~/projects/globe
+projectsRisk: ~/projects/riskhedge-simple-api

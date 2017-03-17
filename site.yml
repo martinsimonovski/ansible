@@ -6,12 +6,9 @@
   # user: root
   # remote_user: user
   # sudo: yes
-  vars:
-    url: letsdevelop.info
-    document_root: /var/www
 
   roles:
     - common
     - nginx
-    - php
-    - nodejs
+    # - php
+    # - nodejs

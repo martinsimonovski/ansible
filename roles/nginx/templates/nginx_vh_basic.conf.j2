@@ -3,11 +3,11 @@ server {
         listen [::]:80 default_server;
 
         # /root/projects/home
-        root {{document_root}};
+        root {{domainRoot}};
         index index.html index.htm index.nginx-debian.html;
 
         # letsdevelop.info
-        server_name {{url}};
+        server_name {{domain}};
 
         location / {
                 # First attempt to serve request as file, then

@@ -2,11 +2,11 @@ server {
         listen 80;
 
         # /root/projects/riskhedge-simple-api/public
-        root {{document_root}};
+        root {{riskRoot}}/public;
         index index.php index.html index.htm index.nginx-debian.html;
 
         # riskhedge.letsdevelop.info
-        server_name {{url}};
+        server_name {{riskDomain}};
 
         location / {
                 # First attempt to serve request as file, then

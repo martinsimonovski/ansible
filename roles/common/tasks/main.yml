@@ -1,10 +1,37 @@
 ---
   - name: Update apt cache
     apt: update_cache=yes
+# ==============================================================================
 
-  - name: Set zsh as the default shell for root
-    command: /usr/bin/chsh -s /usr/bin/zsh root
+  - name: Installing Zsh and git
+    apt: pkg=zsh,git state=latest
+    register: installation
 
-  - name: Copy configuration for VHost
-    template: src=sshdconfig.jinja2 dest=/etc/ssh/sshd_config
-    notify: restart sshd
+  - name: Backing up existing ~/.zshrc
+    shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc{,.orig}; fi
+    when: installation|success
+
+  - name: Cloning oh-my-zsh
+    git:
+      repo=https://github.com/robbyrussell/oh-my-zsh
+      dest=~/.oh-my-zsh
+    when: installation|success
+    register: cloning
+
+  - name: Creating new ~/.zshrc
+    copy:
+      src=~/.oh-my-zsh/templates/zshrc.zsh-template
+      dest=~/.zshrc
+    when: cloning|success
+# ==============================================================================
+
+  - name: Create Projects root folder
+    file: path={{ projectsRoot }} state=directory owner=www-data group=www-data mode=0755 recurse=yes
+
+  - name: Create Projects folders
+    file: path={{item}} state=directory owner=www-data group=www-data mode=0755 recurse=yes
+    with_items:
+      - "{{ projectsHome }}"
+      - "{{ projectsGlobe }}"
+      - "{{ projectsRisk }}"
+# ==============================================================================

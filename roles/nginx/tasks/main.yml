@@ -1,20 +1,50 @@
 ---
 - name: Install NGINX
   apt: name=nginx state=present update_cache=true
-- name: Create letsdevelop.info
-  template:
-    src=nginx_vh_basic.conf.j2
-    dest=/etc/nginx/sites-available/{{url}}
-- name: Enable letsdevelop.info
-  file:
-    src=/etc/nginx/sites-available/{{url}}
-    dest=/etc/nginx/sites-enabled/{{url}}
-    state=link
-  notify:
-    - reload nginx
+# ==============================================================================
+# Remove default configuration
 - name: Remove default link
   file:
     path=/etc/nginx/sites-enabled/default
     state=absent
+  notify:
+    - reload nginx
+# ==============================================================================
+# letsdevelop.info
+- name: Create {{domain}}
+  template:
+    src=nginx_vh_basic.conf.j2
+    dest=/etc/nginx/sites-available/{{domain}}
+- name: Enable {{domain}}
+  file:
+    src=/etc/nginx/sites-available/{{domain}}
+    dest=/etc/nginx/sites-enabled/{{domain}}
+    state=link
+  notify:
+    - reload nginx
+# ==============================================================================
+# globe.letsdevelop.info
+- name: Create {{globeDomain}}
+  template:
+    src=nginx_vh_node.conf.j2
+    dest=/etc/nginx/sites-available/{{globeDomain}}
+- name: Enable {{globeDomain}}
+  file:
+    src=/etc/nginx/sites-available/{{globeDomain}}
+    dest=/etc/nginx/sites-enabled/{{globeDomain}}
+    state=link
+  notify:
+    - reload nginx
+# ==============================================================================
+# riskhedge.letsdevelop.info
+- name: Create {{riskDomain}}
+  template:
+    src=nginx_vh.conf.j2
+    dest=/etc/nginx/sites-available/{{riskDomain}}
+- name: Enable {{riskDomain}}
+  file:
+    src=/etc/nginx/sites-available/{{riskDomain}}
+    dest=/etc/nginx/sites-enabled/{{riskDomain}}
+    state=link
   notify:
     - reload nginx

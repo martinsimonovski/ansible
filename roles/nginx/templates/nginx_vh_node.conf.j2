@@ -1,10 +1,10 @@
 server {
     listen 80;
 
-    server_name {{url}};
+    server_name {{globeDomain}};
 
     location / {
-        proxy_pass http://localhost:{{port}};
+        proxy_pass http://localhost:{{globePort}};
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
