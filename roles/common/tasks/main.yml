@@ -3,7 +3,6 @@
     apt: update_cache=yes
 # ==============================================================================
 # Oh my zsh
-
   - name: Installing Zsh and git
     apt: pkg=zsh,git state=latest
     register: installation
@@ -23,22 +22,18 @@
 
   - name: Changing default zsh
     command: chsh -s /bin/zsh
-
 # ==============================================================================
 # Aliaces
-
   - name: Copy .aliaces file to home directory
     copy:
       src=.aliaces
       dest={{ home }}/.aliaces
 
   - name: Add aliaces to zshrc
-    lineinfile: dest=/root/.zshrc line="source /root/.aliaces"
+    lineinfile: dest={{ home }}/.zshrc line="source {{ home }}/.aliaces"
     # when: test_line.stdout != ""
-
 # ==============================================================================
 # Projects & folders
-
   - name: Create Projects root folder
     file: path={{ projectsRoot }} state=directory owner=www-data group=www-data mode=0755 recurse=yes
 
