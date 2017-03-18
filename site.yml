@@ -1,8 +1,10 @@
 ---
-- name: Show off some basic Ansible features
+- name: Install LetsDevelop.info
   hosts: local
-  # become: true
+  become: true
   remote_user: vagrant
 
   roles:
     - common
+    - nginx
+    - php
