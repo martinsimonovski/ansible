@@ -1,15 +1,24 @@
 ---
+# ==============================================================================
+# Getting nodejs script online (this is like curl)
 - name: GET NodeJS
   get_url:
     url=https://deb.nodesource.com/setup_6.x
     dest={{ home }}/nodesource_setup.sh
     mode=775
-
+# ==============================================================================
+# Installing the nodejs script
 - name: Install NodeJS script
   command: bash {{ home }}/nodesource_setup.sh
-
+# ==============================================================================
+# Installing nodejs
 - name: Install NodeJS
   apt: name={{item}} state=present update_cache=true
   with_items:
     - nodejs
     - build-essential
+# ==============================================================================
+# Installing the babel-cli globaly, we will need it for pm2
+- name: Install babel-cli globaly
+  command: npm install -g babel-cli
+# ==============================================================================

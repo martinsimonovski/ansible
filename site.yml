@@ -9,3 +9,4 @@
     - nginx
     - php
     - node
+    - pm2

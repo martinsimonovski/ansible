@@ -1,0 +1,6 @@
+---
+# ==============================================================================
+# Installing pm2 - This is for managing daemons in the background
+- name: Get PM2 - Managing daemon
+  command: npm install -g pm2
+# ==============================================================================
