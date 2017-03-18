@@ -1,0 +1,4 @@
+function myprojects(){
+    cd /root/projects/$@
+}
+alias pro=myprojects

@@ -2,6 +2,7 @@
   - name: Update apt cache
     apt: update_cache=yes
 # ==============================================================================
+# Oh my zsh
 
   - name: Installing Zsh and git
     apt: pkg=zsh,git state=latest
@@ -10,22 +11,36 @@
   - name: Cloning oh-my-zsh
     git:
       repo=https://github.com/robbyrussell/oh-my-zsh
-      dest=~/.oh-my-zsh
+      dest={{ home }}/.oh-my-zsh
     when: installation|success
     register: cloning
 
   - name: Creating new ~/.zshrc
     copy:
       src=~/.oh-my-zsh/templates/zshrc.zsh-template
-      dest=~/.zshrc
+      dest={{ home }}/.zshrc
     when: cloning|success
+
+  - name: Changing default zsh
+    command: chsh -s /bin/zsh
+
 # ==============================================================================
+# Aliaces
+
+  - name: Copy .aliaces file to home directory
+    copy:
+      src=.aliaces
+      dest={{ home }}/.aliaces
+
+  - name: Add aliaces to zshrc
+    lineinfile: dest=/root/.zshrc line="source /root/.aliaces"
+    # when: test_line.stdout != ""
+
+# ==============================================================================
+# Projects & folders
 
   - name: Create Projects root folder
     file: path={{ projectsRoot }} state=directory owner=www-data group=www-data mode=0755 recurse=yes
-
-  - name: Create alias for projects folder
-    command: alias projects='cd {{ projectsRoot }}/$1'
 
   - name: Create Projects folders
     file: path={{ item }} state=directory owner=www-data group=www-data mode=0755 recurse=yes

@@ -1,14 +1,8 @@
 ---
 - name: Show off some basic Ansible features
   hosts: local
-  become: true
+  # become: true
   remote_user: vagrant
-  # user: root
-  # remote_user: user
-  # sudo: yes
 
   roles:
     - common
-    - nginx
-    # - php
-    # - nodejs
