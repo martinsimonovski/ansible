@@ -11,13 +11,20 @@
     - reload nginx
 # ==============================================================================
 # Getting Globe project and initializing it
+# cleaning the folder because git module has some problems and can't update the
+# branch if it is already there, it is making the files to be "modified"
+- name: Cleaning the folder beforehand
+  file:
+    state=absent
+    path={{ projectsGlobe }}/
+
 - name: Setting up globe project
   git:
     repo=https://github.com/martinsimonovski/globe.git
     dest={{ projectsGlobe }}
     accept_hostkey=yes
     key_file=/Users/martin/.ssh/id_martin
-    version=relay-server
+    # version=relay-server #this is the branch
   register: git_finished
 
 - name: NPM cache clean
