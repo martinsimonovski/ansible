@@ -17,19 +17,25 @@
     dest={{ projectsGlobe }}
     accept_hostkey=yes
     key_file=/Users/martin/.ssh/id_martin
-  # register: git_finished
+    version=relay-server
+  register: git_finished
 
-- name: Running NPM install
-  npm:
-    path={{ projectsGlobe }}
-  register: npm_finished
+- name: NPM cache clean
+  command: npm cache clean
+
+# this has problems with sqlite3
+# - name: Running NPM install
+#   npm:
+#     path={{ projectsGlobe }}
+#     state=present
+#   register: npm_finished
   # when: git_finished.changed
 
-- name: Installing sqlite3 manually - problems
-  npm:
-    name=sqlite3
-    path={{ projectsGlobe }}
+- name: Installing Globe (package.json) with yarn
+  command: yarn
+    chdir={{ projectsGlobe }}
   register: npm_finished
+  when: git_finished.changed
 
 # If they are started already so we don't get error
 - name: Deleting pm2 processes
@@ -37,8 +43,8 @@
 
 - name: Starting the server with pm2
   command: pm2 start --interpreter babel-node {{ projectsGlobe }}/server.js --name "globe"
-  # when: npm_finished.changed
-  # notify:
-  #   - reload nginx
+  when: npm_finished.changed
+  notify:
+    - reload nginx
 # ==============================================================================
 # Installing Risk-hedge project

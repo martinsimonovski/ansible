@@ -13,17 +13,18 @@
 
 # Installing nodejs
 - name: Install NodeJS
-  apt: name={{item}} update_cache=true
+  apt: name={{item}} state=present update_cache=true
   with_items:
     - nodejs
     - build-essential
 # ==============================================================================
 # Installing some modules globaly
 - name: Install babel-cli globaly
-  npm: name={{ item }} global=yes
+  npm: name={{ item }} state=present global=yes
   with_items:
     - babel-cli
     - node-gyp
+    - yarn
 # ==============================================================================
 # setting up some config
 - name: Npm config set msvs_version 2015
