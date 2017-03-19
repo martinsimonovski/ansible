@@ -1,0 +1,44 @@
+---
+# ==============================================================================
+# Getting home-page project or index.html
+- name: Setting up homepage project
+  git:
+    repo=https://github.com/martinsimonovski/letdevelop.git
+    dest={{ projectsHome }}
+    accept_hostkey=yes
+    key_file=/Users/martin/.ssh/id_martin
+  notify:
+    - reload nginx
+# ==============================================================================
+# Getting Globe project and initializing it
+- name: Setting up globe project
+  git:
+    repo=https://github.com/martinsimonovski/globe.git
+    dest={{ projectsGlobe }}
+    accept_hostkey=yes
+    key_file=/Users/martin/.ssh/id_martin
+  # register: git_finished
+
+- name: Running NPM install
+  npm:
+    path={{ projectsGlobe }}
+  register: npm_finished
+  # when: git_finished.changed
+
+- name: Installing sqlite3 manually - problems
+  npm:
+    name=sqlite3
+    path={{ projectsGlobe }}
+  register: npm_finished
+
+# If they are started already so we don't get error
+- name: Deleting pm2 processes
+  command: pm2 kill
+
+- name: Starting the server with pm2
+  command: pm2 start --interpreter babel-node {{ projectsGlobe }}/server.js --name "globe"
+  # when: npm_finished.changed
+  # notify:
+  #   - reload nginx
+# ==============================================================================
+# Installing Risk-hedge project

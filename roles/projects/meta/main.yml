@@ -1,0 +1,4 @@
+---
+# this will call the whole role of nginx so no need
+# dependencies:
+# - role: nginx
